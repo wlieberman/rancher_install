@@ -52,7 +52,7 @@ echo $SERVER > agent-config.yaml
 echo $TOKEN >> agent-config.yaml
 
 # Copy the agent-config.yaml to the worker nodes
-scp -o "StrictHostKeyChecking no" -i $KEY rocky@$WORKER1:
-scp -o "StrictHostKeyChecking no" -i $KEY rocky@$WORKER2:
+scp -o StrictHostKeyChecking=no -i $KEY agent-config.yaml rocky@$WORKER1:
+scp -o StrictHostKeyChecking=no -i $KEY agent-config.yaml rocky@$WORKER2:
 
 # Copy the agent-config.yaml file to each agent node in /etc/rancher/rke2/config.yaml
