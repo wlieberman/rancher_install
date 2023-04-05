@@ -37,6 +37,6 @@ export CRI_CONFIG_FILE=/var/lib/rancher/rke3/agent/etc/crictl.yaml
 
 # Start the service
 sudo systemctl start rke2-agent.service
-journalctl -u rke2-agent -f
+# journalctl -u rke2-agent -f
 
 # Each node has to have a unique node-name You can also set the "node-name" parameter in config.yaml file

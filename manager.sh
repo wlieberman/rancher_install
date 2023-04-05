@@ -20,7 +20,7 @@ sudo systemctl enable rke2-server.service
 sudo systemctl start rke2-server.service
 
 # Follow the logs
-journalctl -u rke2-server -f
+# journalctl -u rke2-server -f
 
 # Remember to add /var/lib/rancher/rke2/bin to your path
 echo "Add /var/lib/rancher/rke2/bin to your path for additional tools"
