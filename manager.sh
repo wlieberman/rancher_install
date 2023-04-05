@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Let's get some info so we can automate more
+echo "What is the full path to your pem key: "
+read KEY
+echo "What is the internal IP for worker1: "
+read WORKER1
+echo "What is the internal IP for worker2: "
+read WORKER2
+
 # Install needed for Longhorn
 yum -y --setopt=tsflags=noscripts install iscsi-initiator-utils
 echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
@@ -42,5 +50,9 @@ export SERVER="server: https://$HOSTNAME:9345"
 export TOKEN="token: `cat /var/lib/rancher/rke2/server/token`"
 echo $SERVER > agent-config.yaml
 echo $TOKEN >> agent-config.yaml
+
+# Copy the agent-config.yaml to the worker nodes
+scp -i $KEY rocky@$WORKER1:
+scp -i $KEY rocky@$WORKER2:
 
 # Copy the agent-config.yaml file to each agent node in /etc/rancher/rke2/config.yaml
