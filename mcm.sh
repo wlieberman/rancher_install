@@ -1,5 +1,9 @@
 # Install helm first!!!
 
+export PATH=$PATH:/var/lib/rancher/rke2/bin:/usr/local/bin/:$PATH
+export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+export CRI_CONFIG_FILE=/var/lib/rancher/rke3/agent/etc/crictl.yaml
+
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 sudo ./get_helm.sh
