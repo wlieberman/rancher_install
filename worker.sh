@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo mkdir -p /etc/rancher/rke2/
-cp agent-config.yaml /etc/rancher/rke2/config.yaml
+cp ~rocky/agent-config.yaml /etc/rancher/rke2/config.yaml
 
 # Install needed for Longhorn
 yum -y --setopt=tsflags=noscripts install iscsi-initiator-utils
