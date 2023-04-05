@@ -1,5 +1,14 @@
 #!/bin/bash
 
+sudo mkdir -p /etc/rancher/rke2/
+cp agent-config.yaml /etc/rancher/rke2/config.yaml
+
+# Install needed for Longhorn
+yum -y --setopt=tsflags=noscripts install iscsi-initiator-utils
+echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
+systemctl enable iscsid
+systemctl start iscsid
+
 # Install a linux worker node
 #curl -sfL https://get.rke2.io | sudo INSTALL_RKE2_TYPE="agent" sh -
 curl -sfL https://get.rke2.io --output install.sh
@@ -31,9 +40,3 @@ sudo systemctl start rke2-agent.service
 journalctl -u rke2-agent -f
 
 # Each node has to have a unique node-name You can also set the "node-name" parameter in config.yaml file
-
-# Install needed for Longhorn
-yum -y --setopt=tsflags=noscripts install iscsi-initiator-utils
-echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
-systemctl enable iscsid
-systemctl start iscsid

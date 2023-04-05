@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Install needed for Longhorn
+yum -y --setopt=tsflags=noscripts install iscsi-initiator-utils
+echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
+systemctl enable iscsid
+systemctl start iscsid
 
 # This is the server installation on the manager(s)
 # Run this as root
@@ -23,6 +28,10 @@ echo "export PATH=$PATH:/var/lib/rancher/rke2/bin:/usr/local/bin/:$PATH"
 echo "export KUBECONFIG=/etc/rancher/rke2/rke2.yaml"
 echo "export CRI_CONFIG_FILE=/var/lib/rancher/rke3/agent/etc/crictl.yaml"
 
+export PATH=$PATH:/var/lib/rancher/rke2/bin:/usr/local/bin/:$PATH
+export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+export CRI_CONFIG_FILE=/var/lib/rancher/rke3/agent/etc/crictl.yaml
+
 echo "Two cleanup scripts will be installed to the path at /usr/local/bin/rke2. They are: rke2-killall.sh and rke2-uninstall.sh."
 echo "A kubeconfig file will be written to /etc/rancher/rke2/rke2.yaml."
 echo "A token that can be used to register other server or agent nodes will be created at /var/lib/rancher/rke2/server/node-token"
@@ -35,9 +44,3 @@ echo $SERVER > agent-config.yaml
 echo $TOKEN >> agent-config.yaml
 
 # Copy the agent-config.yaml file to each agent node in /etc/rancher/rke2/config.yaml
-
-# Install needed for Longhorn
-yum -y --setopt=tsflags=noscripts install iscsi-initiator-utils
-echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
-systemctl enable iscsid
-systemctl start iscsid
