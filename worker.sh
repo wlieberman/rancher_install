@@ -13,11 +13,12 @@ systemctl start iscsid
 #curl -sfL https://get.rke2.io | sudo INSTALL_RKE2_TYPE="agent" sh -
 curl -sfL https://get.rke2.io --output install.sh
 chmod +x install.sh
-# INSTALL_RKE2_CHANNEL=v1.24 ./install.sh
-INSTALL_RKE2_CHANNEL=v1.24 INSTALL_RKE2_TYPE="agent" ./install.sh
+INSTALL_RKE2_CHANNEL=v1.24 ./install.sh
+# INSTALL_RKE2_CHANNEL=v1.24 INSTALL_RKE2_TYPE="agent" ./install.sh
 
 # Enable the service
-sudo systemctl enable rke2-agent.service
+# sudo systemctl enable rke2-agent.service
+sudo systemctl enable rke2-server.service
 
 # Configure the rke2-agent service
 # sudo mkdir -p /etc/rancher/rke2/
